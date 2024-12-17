@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: #D6EAF8;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.logincontroller">
+    <children>
+        <Label layoutX="320.0" layoutY="80.0" text="Log in to your account" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2E86C1;" />
+        
+        <!-- Email Field -->
+        <TextField fx:id="tf_mail" layoutX="300.0" layoutY="155.0" prefHeight="40.0" prefWidth="300.0"
+                  promptText="Enter your email" style="-fx-background-color: white; -fx-border-color: #5DADE2; -fx-border-radius: 5px;" />
+        <Label fx:id="lbl_errorMail" layoutX="300.0" layoutY="200.0" text="" style="-fx-text-fill: red; -fx-font-size: 12px;" />
+
+        <!-- Password Field -->
+        <PasswordField fx:id="tf_password" layoutX="300.0" layoutY="225.0" prefHeight="40.0" prefWidth="300.0"
+                       promptText="Enter your password" style="-fx-background-color: white; -fx-border-color: #5DADE2; -fx-border-radius: 5px;" />
+        <Label fx:id="lbl_errorPassword" layoutX="300.0" layoutY="270.0" text="" style="-fx-text-fill: red; -fx-font-size: 12px;" />
+        
+        <!-- Login Button -->
+        <Button layoutX="365.0" layoutY="300.0" onAction="#login" mnemonicParsing="false" text="Log in" prefHeight="40.0" prefWidth="170.0"
+                style="-fx-background-color: #5DADE2; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5px;" />
+        
+        <!-- Signup Hyperlink -->
+        <Label layoutX="350.0" layoutY="370.0" text="Don't have an account? " style="-fx-font-size: 14px; -fx-text-fill: #2E86C1;" />
+        <Hyperlink layoutX="490.0" layoutY="367.0" text="Sign Up" style="-fx-font-size: 14px; -fx-text-fill: #2E86C1;" onAction="#goToSign" />
+        
+        <!-- Home Hyperlink -->
+        <Hyperlink layoutX="418.0" layoutY="400.0" text="Home" style="-fx-font-size: 14px; -fx-text-fill: #2E86C1;" onAction="#goToHomePage" />
+    </children>
+</AnchorPane>

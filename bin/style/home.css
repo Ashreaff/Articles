@@ -1,0 +1,54 @@
+/* Main container styling */
+.main-container {
+    -fx-background-color: linear-gradient(to bottom, #f0f4f8, #a6cfdc);
+}
+
+/* Header text */
+.header-text {
+    -fx-font-size: 36px;
+    -fx-font-family: "Arial Black";
+    -fx-fill: #333333;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 2, 2);
+}
+
+/* Description text */
+.description-text {
+    -fx-font-size: 18px;
+    -fx-font-family: "Verdana";
+    -fx-fill: #555555;
+    -fx-text-alignment: justify;
+}
+
+/* Buttons styling */
+.primary-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 2, 2);
+    -fx-padding: 10 20;
+}
+
+.secondary-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 2, 2);
+    -fx-padding: 10 20;
+}
+
+.primary-button:hover, .secondary-button:hover {
+    -fx-background-color: #2ecc71;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 6, 0, 3, 3);
+}
+
+/* Footer text */
+.footer-text {
+    -fx-font-size: 12px;
+    -fx-font-family: "Courier New Italic";
+    -fx-fill: #888888;
+    -fx-opacity: 0.8;
+}

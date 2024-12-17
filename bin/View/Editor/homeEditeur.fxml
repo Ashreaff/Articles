@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color:rgb(78, 146, 167);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditeurHomeController">
+   <top>
+      <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #34495E, #2C3E50); -fx-padding: 10;" BorderPane.alignment="CENTER">
+         <children>
+            <!-- <Label alignment="CENTER" prefHeight="44.0" prefWidth="166.0" text="Easy Science" textFill="#FFFFFF">
+               <font>
+                  <Font name="Edwardian Script ITC" size="30.0" />
+               </font>
+            </Label>
+            <Separator maxHeight="38.0" orientation="VERTICAL" />
+            <TextField promptText="Search" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-border-radius: 5; -fx-padding: 5;" />
+             -->
+         </children>
+      </HBox>
+   </top>
+
+
+   
+<left>
+    <VBox prefHeight="558.0" prefWidth="187.0" style="-fx-background-color: linear-gradient(to bottom, #2C3E50, #34495E); -fx-padding: 10;" spacing="10">
+        <children>
+            <Label text="Menu" textFill="#ECF0F1" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+            <Separator style="-fx-background-color: #7F8C8D;" />
+
+            <HBox fx:id="addOption" alignment="CENTER_LEFT" spacing="10.0"
+                  style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
+                  onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handlAddClick">
+                                 <Label text="&#xE104;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);"/>
+                <Label text="Add Editor" textFill="#FFFFFF" style="-fx-font-size: 16;" />
+            </HBox>
+
+            <HBox fx:id="chooseEvaluatorsOption" alignment="CENTER_LEFT" spacing="10.0"
+                  style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
+                  onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleChooseEvaluatorsClick">
+                                 <Label text="&#xE113;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);"/>
+                <Label text="Choose Evaluators" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            </HBox>
+
+            <HBox fx:id="makeDecisionOption" alignment="CENTER_LEFT" spacing="10.0"
+                  style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
+                  onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleMakeDecisionClick">
+                  <Label text="&#xE105;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);"/>
+                <Label text="Make a Decision" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            </HBox>
+
+            <HBox fx:id="evaluationProcessOption" alignment="CENTER_LEFT" spacing="10.0"
+                  style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
+                  onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleEvaluationProcessClick">
+                  <Label text="&#xE120;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);"/>
+                <Label text="Evaluation Process" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            </HBox>
+
+            <HBox fx:id="logout" alignment="CENTER_LEFT" spacing="10.0"
+                  style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
+                  onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#logoutClick">
+                  <Label text="&#xE129;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);"/>
+                <Label text="Log-Out" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            </HBox>
+
+        </children>
+    </VBox>
+</left>
+
+   <center>
+      <Pane>
+         <children>
+            <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 50px;">
+               <Label text="Welcome to Your Creative Interface" style="-fx-text-fill: #808080; -fx-font-size: 24px; -fx-font-weight: bold;">
+                  <font>
+                     <Font name="Berlin Sans FB" size="24.0" />
+                  </font>
+               </Label>
+               <Label text="Unleash Your Creativity with Our Intuitive Editor" style="-fx-text-fill: #808080; -fx-font-size: 20px;">
+                  <font>
+                     <Font name="Berlin Sans FB" size="20.0" />
+                  </font>
+               </Label>
+               <Label fx:id="Idusername" text="Your Name Here" style="-fx-text-fill: #666666; -fx-font-style: italic;">
+                  <font>
+                     <Font name="Berlin Sans FB" size="20.0" />
+                  </font>
+               </Label>
+            </VBox>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
+ 

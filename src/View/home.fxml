@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="main-container" stylesheets="@../style/home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.homecontroller">
+    <!-- Background Image -->
+    <ImageView fitHeight="600.0" fitWidth="972.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="false">
+        <image>
+            <Image url="@../image/background.avif" />
+        </image>
+    </ImageView>
+
+    <!-- Header Section -->
+    <Text layoutX="250.0" layoutY="163.0" styleClass="header-text" text="Welcome to the App" AnchorPane.bottomAnchor="426.22109375" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="458.72968749999995" AnchorPane.topAnchor="123.37890625" />
+
+    <!-- Description Text -->
+    <Text layoutX="142.0" layoutY="211.0" styleClass="description-text" text="Your ultimate solution for managing scientific publications effortlessly." wrappingWidth="700.0" AnchorPane.bottomAnchor="385.586328125" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="262.0703125" AnchorPane.topAnchor="192.9033203125" />
+
+    <!-- Buttons Section -->
+    <!-- <Button layoutX="100.0" layoutY="300.0" text="Continue as Guest" onAction="#btn_GuestClicked" styleClass="primary-button" /> -->
+    <Button layoutX="404.0" layoutY="399.0" onAction="#btn_AuthentificateClicked" styleClass="secondary-button" text="Sign Up" />
+
+    <!-- Footer Section -->
+    <Text layoutX="300.0" layoutY="560.0" styleClass="footer-text" text="© 2024 Links Web Design. All Rights Reserved" />
+   <Button layoutX="404.0" layoutY="346.0" onAction="#btn_LoginClicked" prefHeight="41.0" prefWidth="140.0" styleClass="secondary-button" text="Login" />
+</AnchorPane>
