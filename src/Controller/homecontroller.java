@@ -1,34 +1,44 @@
 package Controller;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent; // Import pour MouseEvent
 import javafx.stage.Stage;
-
-
-
+import javafx.util.Duration; // Import pour Duration
+import javafx.scene.Node;
 
 public class homecontroller {
 
-    
+    @FXML
+    private void handleMouseEnter(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), button);
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
+        scaleTransition.play();
+    }
+
+    @FXML
+    private void handleMouseExited(MouseEvent event) {
+        Button button = (Button) event.getSource();
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), button);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+        scaleTransition.play();
+    }
+
     @FXML
     public void btn_AuthentificateClicked(ActionEvent event) {
-        // Charger la scène de SignUp
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/signUpScene.fxml"));
-            Parent loginRoot = loader.load();
-            
-            // Get the current stage
+            Parent signUpRoot = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // Create a new scene with the login view
-            Scene signUpScene = new Scene(loginRoot);
-
-            
+            Scene signUpScene = new Scene(signUpRoot);
             stage.setScene(signUpScene);
             stage.setTitle("Sign Up");
             stage.show();
@@ -36,20 +46,15 @@ public class homecontroller {
             e.printStackTrace();
         }
     }
+
+    @FXML
     public void btn_LoginClicked(ActionEvent event) {
-        // Charger la scène de SignUp
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/login.fxml"));
             Parent loginRoot = loader.load();
-            
-            // Get the current stage
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // Create a new scene with the login view
-            Scene signUpScene = new Scene(loginRoot);
-
-            
-            stage.setScene(signUpScene);
+            Scene loginScene = new Scene(loginRoot);
+            stage.setScene(loginScene);
             stage.setTitle("Log in");
             stage.show();
         } catch (Exception e) {
