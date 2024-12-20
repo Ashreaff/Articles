@@ -87,8 +87,11 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="tf_role" layoutX="520.0" layoutY="265.0" prefWidth="250.0" promptText="e.g., author, editor, reviewer" style="-fx-background-radius: 10; -fx-border-color: #5DADE2; -fx-border-radius: 10; -fx-padding: 5;" />
-                        <Button layoutX="300.0" layoutY="330.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 25; -fx-background-color: #5DADE2;" onAction="#btnCreateClicked" text="Sign Up" textFill="#FFFFFF">
+<TextField fx:id="tf_role" layoutX="520.0" layoutY="265.0" prefWidth="250.0" 
+          promptText="e.g., author, reviewer" 
+          style="-fx-background-radius: 10; -fx-border-color: #5DADE2; -fx-border-radius: 10; -fx-padding: 5;" />
+            
+            <Button layoutX="300.0" layoutY="330.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-radius: 25; -fx-background-color: #5DADE2;" onAction="#btnCreateClicked" text="Sign Up" textFill="#FFFFFF">
                <font>
                   <Font name="Arial Bold" size="16.0" />
                </font>
@@ -97,7 +100,6 @@
                </effect>
             </Button>
 
-            <!-- Lien vers la page d'accueil -->
             <Hyperlink layoutX="382.0" layoutY="400.0" text="Home" style="-fx-font-size: 14px; -fx-text-fill: #2E86C1;" onAction="#goToHomePage" />
          </children>
       </AnchorPane>

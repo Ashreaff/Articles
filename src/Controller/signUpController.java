@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class signUpController {
@@ -42,32 +43,36 @@ public class signUpController {
 
     @FXML
     private TextField tf_role; 
-    
-    @FXML
-    public void btnCreateClicked(ActionEvent event) {
-        String nom = tf_fistName.getText().trim();
-        String prenom = tf_lastName.getText().trim();
-        String adresse = tf_adresse.getText().trim();
-        String email = tf_email.getText().trim();
-        String password = tf_password.getText().trim();
-        String domaine = tf_domaine.getText().trim();
-        String institution = tf_institustion.getText().trim();
-        String role = tf_role.getText().trim(); 
-    
-        // Validation des champs
-        if (nom.isEmpty() || prenom.isEmpty() || adresse.isEmpty() || password.isEmpty() ||
-            domaine.isEmpty() || institution.isEmpty() || role.isEmpty()) {
-            showAlert(AlertType.WARNING, "Validation Error", "Veuillez remplir tous les champs.");
-            return;
-        }
-    
-        // Insérer l'utilisateur dans la base de données
-        if (registerUser(nom, prenom, adresse, password, domaine, institution, role, email)) {
-            showAlert(AlertType.INFORMATION, "Succès", "Inscription réussie !");
-        } else {
-            showAlert(AlertType.ERROR, "Échec", "Erreur lors de l'inscription.");
-        }
+
+ 
+@FXML
+public void btnCreateClicked(ActionEvent event) {
+    String nom = tf_fistName.getText().trim();
+    String prenom = tf_lastName.getText().trim();
+    String adresse = tf_adresse.getText().trim();
+    String email = tf_email.getText().trim();
+    String password = tf_password.getText().trim();
+    String domaine = tf_domaine.getText().trim();
+    String institution = tf_institustion.getText().trim();
+    String role = tf_role.getText().trim().toLowerCase();
+
+    if (!role.equals("author") && !role.equals("reviewer")) {
+        showAlert(AlertType.ERROR, "Erreur de saisie", "Le rôle doit être 'author' ou 'reviewer' uniquement.");
+        return;
     }
+
+    if (nom.isEmpty() || prenom.isEmpty() || adresse.isEmpty() || password.isEmpty() ||
+        domaine.isEmpty() || institution.isEmpty() || role.isEmpty()) {
+        showAlert(AlertType.WARNING, "Validation Error", "Veuillez remplir tous les champs.");
+        return;
+    }
+
+    if (registerUser(nom, prenom, adresse, password, domaine, institution, role, email)) {
+        showAlert(AlertType.INFORMATION, "Succès", "Inscription réussie !");
+    } else {
+        showAlert(AlertType.ERROR, "Échec", "Erreur lors de l'inscription.");
+    }
+}
     
     private boolean registerUser(String nom, String prenom, String adresse, String password, 
                                   String domaine, String institution, String role,String email) {
@@ -108,10 +113,7 @@ public class signUpController {
         
         switch (role.toLowerCase()) {
             case "author":
-                query = "INSERT INTO auteur (id_autheur) VALUES (?)";
-                break;
-            case "editor":
-                query = "INSERT INTO editeur (id_editeur) VALUES (?)";
+                query = "INSERT INTO autheur (id_autheur) VALUES (?)";
                 break;
             case "reviewer":
                 query = "INSERT INTO evaluateur (id_evaluateur) VALUES (?)";
@@ -150,9 +152,6 @@ public class signUpController {
             e.printStackTrace();
         }
     }
-
- 
-       
-        
+   
 
 }

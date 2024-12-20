@@ -9,6 +9,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color:rgb(78, 146, 167);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.EditeurHomeController">
    <top>
@@ -73,28 +76,38 @@
     </VBox>
 </left>
 
-   <center>
-      <Pane>
-         <children>
-            <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 50px;">
-               <Label text="Welcome to Your Creative Interface" style="-fx-text-fill: #808080; -fx-font-size: 24px; -fx-font-weight: bold;">
-                  <font>
-                     <Font name="Berlin Sans FB" size="24.0" />
-                  </font>
-               </Label>
-               <Label text="Unleash Your Creativity with Our Intuitive Editor" style="-fx-text-fill: #808080; -fx-font-size: 20px;">
-                  <font>
-                     <Font name="Berlin Sans FB" size="20.0" />
-                  </font>
-               </Label>
-               <Label fx:id="Idusername" text="Your Name Here" style="-fx-text-fill: #666666; -fx-font-style: italic;">
-                  <font>
-                     <Font name="Berlin Sans FB" size="20.0" />
-                  </font>
-               </Label>
+<center>
+    <Pane maxWidth="800" maxHeight="600">
+        <children>
+            <VBox alignment="CENTER" spacing="20.0" layoutX="75" layoutY="30" >
+                <children>
+                    <Label text="Welcome To Your Account">
+                        <font>
+                            <Font name="Berlin Sans FB" size="32.0" />
+                        </font>
+                        <style>
+                            -fx-text-fill: #2c3e50;
+                            -fx-font-size: 32px;
+                            -fx-font-weight: bold;
+                        </style>
+                    </Label>
+
+                    <HBox alignment="CENTER">
+                        <padding>
+                            <Insets top="20" right="20" bottom="20" left="31"/>
+                        </padding>
+                        <ImageView fitWidth="400" fitHeight="400" preserveRatio="true">
+                            <image>
+                                <Image url="@../../image/Editeur.png"/>
+                            </image>
+                        </ImageView>
+                    </HBox>
+                </children>
             </VBox>
-         </children>
-      </Pane>
-   </center>
+        </children>
+    </Pane>
+</center>
+
+
 </BorderPane>
  

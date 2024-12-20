@@ -36,7 +36,6 @@
         </Rectangle>
     </StackPane>
     
-    <!-- Navigation Bar -->
     <HBox 
         layoutX="0" 
         layoutY="0" 

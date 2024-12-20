@@ -1,69 +1,88 @@
-// package Model;
+package Model;
 
-// import java.sql.Connection;
-// import java.sql.PreparedStatement;
-// import java.sql.ResultSet;
-// import dataBase.DatabaseConnector;
+import DataBase.DatabaseConnection;
 
-// public class Chercheur extends Utilisateur {
-//     private String domaine;
-//     private String institution;
-//     private Connection con;
+public class Chercheur {
 
-//     // Constructeur
-//     public Chercheur(int id, String nom, String prenom, String adresse, String userName, String password, String domaine, String institution) {
-//         super(id, nom, prenom, adresse, userName, password);
-//         this.domaine = domaine;
-//         this.institution = institution;
-//         DatabaseConnector dbc = DatabaseConnector.getDatabaseConnection();
-//         con = dbc.getConnection();
-//     }
+    private int id;
+    private String nom;
+    private String prenom;
+    private String email;
+    private String adresse;
+    private String password;
+    private String Domaine;
+    private String Institution;
+    private String Role;
+    
+    public Chercheur(int id, String nom, String prenom, String email, String adresse, String password, String domaine,
+            String institution, String role) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.adresse = adresse;
+        this.password = password;
+        Domaine = domaine;
+        Institution = institution;
+        Role = role;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getNom() {
+        return nom;
+    }
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+    public String getPrenom() {
+        return prenom;
+    }
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getAdresse() {
+        return adresse;
+    }
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getDomaine() {
+        return Domaine;
+    }
+    public void setDomaine(String domaine) {
+        Domaine = domaine;
+    }
+    public String getInstitution() {
+        return Institution;
+    }
+    public void setInstitution(String institution) {
+        Institution = institution;
+    }
+    public String getRole() {
+        return Role;
+    }
+    public void setRole(String role) {
+        Role = role;
+    };
 
-//     public Chercheur() {
-//         super(0, null, null, null, null, null);
-//         DatabaseConnector dbc = DatabaseConnector.getDatabaseConnection();
-//         con = dbc.getConnection();
-//     }
 
-//     // Getters et Setters
-//     public String getDomaine() {
-//         return domaine;
-//     }
 
-//     public void setDomaine(String domaine) {
-//         this.domaine = domaine;
-//     }
 
-//     public String getInstitution() {
-//         return institution;
-//     }
 
-//     public void setInstitution(String institution) {
-//         this.institution = institution;
-//     }
-
-//     // Méthode pour récupérer un chercheur par ID
-//     public Chercheur getChercheurById(int id) {
-//         Chercheur chercheur = null;
-//         String query = "SELECT * FROM chercheur WHERE id_chercheur = ?";
-//         try (PreparedStatement ps = con.prepareStatement(query)) {
-//             ps.setInt(1, id);
-//             ResultSet rs = ps.executeQuery();
-//             if (rs.next()) {
-//                 chercheur = new Chercheur(
-//                     rs.getInt("id_chercheur"),
-//                     rs.getString("nom"),
-//                     rs.getString("prenom"),
-//                     rs.getString("adresse"),
-//                     rs.getString("userName"),
-//                     null, // Password non récupéré pour des raisons de sécurité
-//                     rs.getString("domaine"),
-//                     rs.getString("institution")
-//                 );
-//             }
-//         } catch (Exception e) {
-//             e.printStackTrace();
-//         }
-//         return chercheur;
-//     }
-// }
+}
