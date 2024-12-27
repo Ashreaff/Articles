@@ -12,5 +12,24 @@
         "c:\\Program Files\\Java\\javafx-sdk-23.0.1\\lib\\javafx.web.jar",
         "c:\\Program Files\\Java\\javafx-sdk-23.0.1\\lib\\javafx-swt.jar"
     ],
+<<<<<<< HEAD
     "CodeGPT.apiKey": "CodeGPT Plus Beta"
+=======
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "127.0.0.1@3306",
+            "database": "gestion",
+            "username": "root"
+        }
+    ]
+>>>>>>> 459b88a (AjoutAuteur)
 }

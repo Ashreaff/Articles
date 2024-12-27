@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controller.MesSoumissionsController"
+      spacing="10" style="-fx-padding: 20px;">
+
+    <Label text="Mes Soumissions" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="soumissionsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="titreColumn" text="Titre" prefWidth="200"/>
+            <TableColumn fx:id="dateSoumissionColumn" text="Date de Soumission" prefWidth="150"/>
+            <TableColumn fx:id="statutColumn" text="Statut" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <Label text="Détails de la soumission:"/>
+    <TextArea fx:id="detailsArea" editable="false" prefHeight="150"/>
+</VBox>
+

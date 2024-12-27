@@ -55,9 +55,9 @@ public class logincontroller {
         if (hasError) return;
 
         // Validation des informations
-        String role = validateLoginAndGetRole(mail, password);
+        LoginResult result = validateLoginAndGetRoleAndId(mail, password);
 
-        if (role == null) {
+        if (result == null) {
             // Vérification si l'email existe
             if (!isEmailValid(mail)) {
                 lbl_errorMail.setText("Email does not exist.");
@@ -65,11 +65,11 @@ public class logincontroller {
                 lbl_errorPassword.setText("Incorrect password.");
             }
         } else {
-            redirectToRolePage(role);
+            redirectToRolePage(result.role, result.id);
         }
     }
 
-    private String validateLoginAndGetRole(String mail, String password) {
+    private LoginResult validateLoginAndGetRoleAndId(String mail, String password) {
         String query = "SELECT c.id_chercheur, " +
                        "(CASE " +
                        " WHEN EXISTS (SELECT 1 FROM autheur WHERE autheur.id_autheur = c.id_chercheur) THEN 'auteur' " +
@@ -87,7 +87,9 @@ public class logincontroller {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return rs.getString("role");
+                String role = rs.getString("role");
+                int id = rs.getInt("id_chercheur");
+                return new LoginResult(role, id);
             }
 
         } catch (Exception e) {
@@ -115,7 +117,7 @@ public class logincontroller {
         return false;
     }
 
-    private void redirectToRolePage(String role) {
+    private void redirectToRolePage(String role, int id) {
         String fxmlFile;
         switch (role) {
             case "auteur":
@@ -135,6 +137,13 @@ public class logincontroller {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
+            
+            // Set the ID in the appropriate controller
+            Object controller = loader.getController();
+            if (controller instanceof AuteurBaseController) {
+                ((AuteurBaseController) controller).setIdAuteur(id);
+            } 
+            
             Stage stage = (Stage) tf_mail.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -169,4 +178,15 @@ public class logincontroller {
             e.printStackTrace();
         }
     }
+
+    private static class LoginResult {
+        String role;
+        int id;
+
+        LoginResult(String role, int id) {
+            this.role = role;
+            this.id = id;
+        }
+    }
 }
+

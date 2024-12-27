@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
 
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Bienvenue dans l'espace auteur" style="-fx-font-size: 24px;" />
-</VBox>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controller.HomeAuteurController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <!-- Barre supérieure -->
+    <top>
+        <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #34495E, #2C3E50); -fx-padding: 10;" BorderPane.alignment="CENTER">
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="200.0" text="Mon Profil" textFill="#FFFFFF" style="-fx-font-size: 24px;">
+                <font>
+                    <Font name="Edwardian Script ITC" size="30.0" />
+                </font>
+            </Label>
+        </HBox>
+    </top>
+
+    <!-- Menu latéral gauche -->
+    <left>
+        <VBox prefHeight="558.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(to bottom, #2C3E50, #34495E); -fx-padding: 10;" spacing="10">
+            <Label text="Menu" textFill="#ECF0F1" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+            <Separator style="-fx-background-color: #7F8C8D;" />
+            
+            <HBox fx:id="homeOption" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleHomeClick">
+                <Label text="🏠" style="-fx-font-size: 20px; -fx-text-fill: #FFFFFF;" />
+                <Label text="Accueil" textFill="#FFFFFF" style="-fx-font-size: 16;" />
+            </HBox>
+            
+            <HBox fx:id="soumettreArticleOption" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleSoumettreArticle">
+                <Label text="📝" style="-fx-font-size: 20px; -fx-text-fill: #FFFFFF;" />
+                <Label text="Soumettre un Article" textFill="#FFFFFF" style="-fx-font-size: 16;" />
+            </HBox>
+            
+            <HBox fx:id="mesSoumissionsOption" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleMesSoumissions">
+                <Label text="📂" style="-fx-font-size: 20px; -fx-text-fill: #FFFFFF;" />
+                <Label text="Mes Soumissions" textFill="#FFFFFF" style="-fx-font-size: 16;" />
+            </HBox>
+            
+            <HBox fx:id="mesEvaluationsOption" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleMesEvaluations">
+                <Label text="📊" style="-fx-font-size: 20px; -fx-text-fill: #FFFFFF;" />
+                <Label text="Mes Évaluations" textFill="#FFFFFF" style="-fx-font-size: 16;" />
+            </HBox>
+             <HBox fx:id="logout" alignment="CENTER_LEFT" spacing="10.0"
+                  style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
+                  onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#logoutClick">
+                  <Label text="&#xE129;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);"/>
+                <Label text="Log-Out" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            </HBox>
+        </VBox>
+    </left>
+
+    <!-- Zone centrale -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-padding: 20;">
+            <Label text="Bienvenue dans l'interface auteur" style="-fx-font-size: 20px;" />
+        </StackPane>
+    </center>
+
+</BorderPane>

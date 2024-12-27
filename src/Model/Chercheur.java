@@ -1,7 +1,5 @@
 package Model;
 
-import DataBase.DatabaseConnection;
-
 public class Chercheur {
 
     private int id;

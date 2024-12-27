@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controller.MesEvaluationsController"
+      spacing="10" style="-fx-padding: 20px;">
+
+    <Label text="Mes Évaluations" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <TableView fx:id="evaluationsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="titreArticleColumn" text="Titre de l'Article" prefWidth="200"/>
+            <TableColumn fx:id="dateEvaluationColumn" text="Date d'Évaluation" prefWidth="150"/>
+            <TableColumn fx:id="avisColumn" text="Avis" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <Label text="Détails de l'évaluation:"/>
+    <TextArea fx:id="detailsArea" editable="false" prefHeight="150"/>
+</VBox>
+
