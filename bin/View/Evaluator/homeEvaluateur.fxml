@@ -1,47 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color:rgb(78, 146, 167);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Evalhome">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color:rgb(255, 255, 255);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Evalhome">
    <top>
-      <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #34495E, #2C3E50); -fx-padding: 10.0;" BorderPane.alignment="CENTER">
+      <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: #3A9FA4; -fx-padding: 10.0;" BorderPane.alignment="CENTER">
          <children>
-            <!-- Barre de navigation -->
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="772.0" style="-fx-font-family: Playfair Display; -fx-text-fill: rgb(249, 244, 244);" text="Evaluate">
+               <font>
+                  <Font name="System Bold Italic" size="40.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </top>
 
    <left>
-      <VBox prefHeight="558.0" prefWidth="187.0" style="-fx-background-color: linear-gradient(to bottom, #2C3E50, #34495E); -fx-padding: 10.0;" spacing="10.0">
+      <VBox prefHeight="558.0" prefWidth="187.0" spacing="10.0" style="-fx-background-color: #3A9FA4; -fx-padding: 10.0;">
          <children>
-            <Label text="Menu" textFill="#ECF0F1" style="-fx-font-size: 18; -fx-font-weight: bold;" />
-            <Separator style="-fx-background-color: #7F8C8D;" />
+            <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="Menu" textFill="WHITE" />
+            <Separator style="-fx-background-color: #23507A;" />
 
-            <HBox fx:id="Articles" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handlArClick">
-               <Label text="&#xE104;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" />
-               <Label text="Your Articles" textFill="#FFFFFF" style="-fx-font-size: 16;" />
+            <HBox fx:id="Articles" alignment="CENTER" onMouseClicked="#handlArClick" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: #23507A; -fx-border-radius: 30; -fx-background-radius: 30; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;">
+               <Label alignment="CENTER" style="-fx-font-size: 16;" text="Your Articles" textFill="#FFFFFF" />
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.1281091570854187" green="0.28997790813446045" blue="0.3263157904148102" />
+                     </color>
+                  </DropShadow>
+               </effect>
             </HBox>
 
-            <HBox fx:id="Submissions" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleManageSubClick">
-               <Label text="&#xE113;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" />
-               <Label text="Submissions" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            <HBox fx:id="Submissions" alignment="CENTER_LEFT" onMouseClicked="#handleManageSubClick" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: #23507A; -fx-border-radius: 30; -fx-background-radius: 30; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;">
+               <Label style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" text="" />
+               <Label style="-fx-font-size: 16;" text="Submissions" textFill="#ECF0F1" />
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
 
-            <HBox fx:id="Evaluate" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleEvaluateArticlesClick">
-               <Label text="&#xE120;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" />
-               <Label text="Evaluate Articles" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            <HBox fx:id="Evaluate" alignment="CENTER_LEFT" onMouseClicked="#handleEvaluateArticlesClick" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: #23507A; -fx-border-radius: 30; -fx-background-radius: 30; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;">
+               <Label style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" text="" />
+               <Label style="-fx-font-size: 16;" text="Evaluate Articles" textFill="#ECF0F1" />
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
 
-            <HBox fx:id="logout" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#logoutClick">
-               <Label text="&#xE129;" style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" />
-               <Label text="Log-Out" textFill="#ECF0F1" style="-fx-font-size: 16;" />
+            <HBox fx:id="logout" alignment="CENTER_LEFT" onMouseClicked="#logoutClick" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" spacing="10.0" style="-fx-padding: 10.0 5.0 10.0 5.0; -fx-background-color: #23507A; -fx-border-radius: 30; -fx-background-radius: 30; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;">
+               <Label style="-fx-font-family: 'Bootstrap Icons'; -fx-text-fill:rgb(249, 244, 244);" text="" />
+               <Label style="-fx-font-size: 16;" text="Log-Out" textFill="#ECF0F1" />
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
          </children>
       </VBox>
@@ -61,5 +82,34 @@
             </TableView>
          </children>
       </VBox> -->
+   </center>
+   <cursor>
+      <Cursor fx:constant="CLOSED_HAND" />
+   </cursor>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="21.0" layoutY="46.0" prefHeight="200.0" prefWidth="266.0" style="-fx-background-color: #f9f9f9;">
+               <children>
+                  <Label alignment="CENTER" layoutX="2.0" prefHeight="23.0" prefWidth="264.0" style="-fx-background-color: #d9d9d9;" text="Label" />
+               </children>
+            </Pane>
+            <Pane layoutX="325.0" layoutY="46.0" prefHeight="194.0" prefWidth="266.0" style="-fx-background-color: #f9f9f9;">
+               <children>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="3.0" prefHeight="23.0" prefWidth="264.0" style="-fx-background-color: #d9d9d9;" text="Label" />
+               </children>
+            </Pane>
+            <Pane layoutX="21.0" layoutY="272.0" prefHeight="200.0" prefWidth="264.0" style="-fx-background-color: #f9f9f9;">
+               <children>
+                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="264.0" style="-fx-background-color: #d9d9d9;" text="Label" />
+               </children>
+            </Pane>
+            <Pane layoutX="327.0" layoutY="272.0" prefHeight="200.0" prefWidth="262.0" style="-fx-background-color: #f9f9f9;">
+               <children>
+                  <Label alignment="CENTER" layoutX="-1.0" prefHeight="23.0" prefWidth="264.0" style="-fx-background-color: #d9d9d9;" text="Label" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </center>
 </BorderPane>
