@@ -1,6 +1,5 @@
 package Model;
 
-
 import javafx.beans.property.*;
 
 public class Article {
@@ -11,9 +10,13 @@ public class Article {
     private final IntegerProperty taille;
     private final StringProperty contenu;
     private final BooleanProperty estCourt;
+    
 
+
+
+    
     public Article(int idArticle, String titre, int idAuteur, String resume, int taille, 
-                   String contenu, boolean estCourt) {
+                   String contenu, boolean estCourt, boolean affecter) {
         this.idArticle = new SimpleIntegerProperty(idArticle);
         this.titre = new SimpleStringProperty(titre);
         this.idAuteur = new SimpleIntegerProperty(idAuteur);
@@ -23,7 +26,8 @@ public class Article {
         this.estCourt = new SimpleBooleanProperty(estCourt);
     }
 
-    public Article(String titre, int idAuteur, String resume, int taille, String contenu, boolean estCourt) {
+    public Article(String titre, int idAuteur, String resume, int taille, String contenu, 
+                   boolean estCourt, boolean affecter) {
         this.idArticle = new SimpleIntegerProperty(0); 
         this.titre = new SimpleStringProperty(titre);
         this.idAuteur = new SimpleIntegerProperty(idAuteur);
@@ -33,6 +37,9 @@ public class Article {
         this.estCourt = new SimpleBooleanProperty(estCourt);
     }
    
+
+
+    
     // Getters and setters for all properties
     public int getIdArticle() { return idArticle.get(); }
     public IntegerProperty idArticleProperty() { return idArticle; }
@@ -61,6 +68,5 @@ public class Article {
     public boolean isEstCourt() { return estCourt.get(); }
     public BooleanProperty estCourtProperty() { return estCourt; }
     public void setEstCourt(boolean estCourt) { this.estCourt.set(estCourt); }
+
 }
-
-
