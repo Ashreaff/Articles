@@ -20,11 +20,11 @@
         <Label text="Contenu:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <TextArea fx:id="contenuArea" GridPane.columnIndex="1" GridPane.rowIndex="2" prefRowCount="10"/>
 
-        <Label text="Taille:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <TextField fx:id="tailleField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Mots-clés:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="motsClesField" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Séparez les mots-clés par des virgules"/>
 
-        <Label text="Est court:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <CheckBox fx:id="estCourtCheckBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Taille:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Label fx:id="tailleLabel" text="Nombre de mots : 0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
     </GridPane>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">

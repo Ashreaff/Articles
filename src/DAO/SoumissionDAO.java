@@ -1,68 +1,85 @@
 package DAO;
 
-import DataBase.DatabaseConnection;
 import Model.Soumission;
+import DataBase.DatabaseConnection;
+
+import java.util.logging.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SoumissionDAO {
 
-    public List<Soumission> getSoumissionsByAuteur(int idAuteur) throws SQLException {
-        List<Soumission> soumissions = new ArrayList<>();
-        String sql = "SELECT s.id_soumission, s.id_article, a.titre, s.id_correspondant, s.date_soumission, s.id_evaluateur, " +
-                     "CASE WHEN e.id_evaluation IS NULL THEN 'En attente' ELSE e.avis END AS statut " +
-                     "FROM soumission s " +
-                     "JOIN article a ON s.id_article = a.id_article " +
-                     "LEFT JOIN evaluation e ON s.id_soumission = e.id_soumission " +
-                     "WHERE a.id_auteur = ?";
+    private static final Logger LOGGER = Logger.getLogger(SoumissionDAO.class.getName());
 
+
+    public int saveSoumission(Soumission soumission) throws SQLException {
+        String sql = "INSERT INTO soumission (id_article, id_correspondant, date_soumission, affecter) VALUES (?, ?, ?, ?)";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
+            pstmt.setInt(1, soumission.getIdArticle());
+            pstmt.setInt(2, soumission.getIdCorrespondant());
+            pstmt.setDate(3, java.sql.Date.valueOf(soumission.getDateSoumission()));
+            pstmt.setBoolean(4, soumission.isAffecter());
+            
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating soumission failed, no rows affected.");
+            }
+    
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating soumission failed, no ID obtained.");
+                }
+            }
+        }
+    }
+    
+    
+
+    public List<Soumission> getSoumissionsByCorrespondant(int idCorrespondant) throws SQLException {
+        List<Soumission> soumissions = new ArrayList<>();
+        String sql = "SELECT * FROM soumission WHERE id_correspondant = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, idAuteur);
+            pstmt.setInt(1, idCorrespondant);
             try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    soumissions.add(new Soumission(
-                            rs.getInt("id_soumission"),
-                            rs.getInt("id_article"),
-                            rs.getInt("id_correspondant"),
-                            rs.getDate("date_soumission").toLocalDate(),
-                            rs.getObject("id_evaluateur") != null ? rs.getInt("id_evaluateur") : null,
-                            rs.getString("titre"),
-                            rs.getString("statut")
-                    ));
-                }
+            while (rs.next()) {
+                Soumission soumission = new Soumission();
+                soumission.setIdSoumission(rs.getInt("id_soumission"));
+                soumission.setIdArticle(rs.getInt("id_article"));
+                soumission.setIdCorrespondant(rs.getInt("id_correspondant"));
+                soumission.setDateSoumission(rs.getDate("date_soumission").toLocalDate());
+                soumission.setAffecter(rs.getBoolean("affecter"));
+                soumissions.add(soumission);
+            }
             }
         }
         return soumissions;
     }
-
     public String getSoumissionDetails(int idSoumission) throws SQLException {
-        String sql = "SELECT s.id_soumission, a.titre, a.resume, s.date_soumission, s.id_evaluateur, " +
-                     "CASE WHEN e.id_evaluation IS NULL THEN 'En attente' ELSE e.avis END AS statut, " +
-                     "e.date_evaluation " +
-                     "FROM soumission s " +
-                     "JOIN article a ON s.id_article = a.id_article " +
-                     "LEFT JOIN evaluation e ON s.id_soumission = e.id_soumission " +
-                     "WHERE s.id_soumission = ?";
-
+        String sql = "SELECT s.*, a.titre, a.resume FROM soumission s JOIN article a ON s.id_article = a.id_article WHERE s.id_soumission = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, idSoumission);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    return String.format("ID Soumission: %d\nTitre: %s\nRésumé: %s\nDate de soumission: %s\nID Évaluateur: %s\nStatut: %s\nDate d'évaluation: %s",
-                            rs.getInt("id_soumission"),
-                            rs.getString("titre"),
-                            rs.getString("resume"),
-                            rs.getDate("date_soumission"),
-                            rs.getObject("id_evaluateur") != null ? rs.getInt("id_evaluateur") : "Non assigné",
-                            rs.getString("statut"),
-                            rs.getDate("date_evaluation") != null ? rs.getDate("date_evaluation").toString() : "N/A"
+                    return String.format("ID Soumission: %d\nTitre: %s\nRésumé: %s\nDate de soumission: %s\nAffecté: %s",
+                        rs.getInt("id_soumission"),
+                        rs.getString("titre"),
+                        rs.getString("resume"),
+                        rs.getDate("date_soumission"),
+                        rs.getBoolean("affecter") ? "Oui" : "Non"
                     );
                 }
             }
         }
         return "Détails non disponibles";
     }
+    
 }
+

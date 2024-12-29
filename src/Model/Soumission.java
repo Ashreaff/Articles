@@ -8,23 +8,41 @@ public class Soumission {
     private final IntegerProperty idArticle;
     private final IntegerProperty idCorrespondant;
     private final ObjectProperty<LocalDate> dateSoumission;
-    private final IntegerProperty idEvaluateur;
+    private final BooleanProperty affecter;
+    private final StringProperty titre;
+    private final IntegerProperty taille;
 
-    // Propriétés supplémentaires pour les informations jointes
-    private final StringProperty titreArticle;
-    private final StringProperty statut;
-
-    public Soumission(int idSoumission, int idArticle, int idCorrespondant, LocalDate dateSoumission, Integer idEvaluateur, String titreArticle, String statut) {
+    public Soumission(int idSoumission, int idArticle, int idCorrespondant, LocalDate dateSoumission, boolean affecter, String titre, int taille) {
         this.idSoumission = new SimpleIntegerProperty(idSoumission);
         this.idArticle = new SimpleIntegerProperty(idArticle);
         this.idCorrespondant = new SimpleIntegerProperty(idCorrespondant);
         this.dateSoumission = new SimpleObjectProperty<>(dateSoumission);
-        this.idEvaluateur = new SimpleIntegerProperty(idEvaluateur != null ? idEvaluateur : 0);
-        this.titreArticle = new SimpleStringProperty(titreArticle);
-        this.statut = new SimpleStringProperty(statut);
+        this.affecter = new SimpleBooleanProperty(affecter);
+        this.titre = new SimpleStringProperty(titre);
+        this.taille = new SimpleIntegerProperty(taille);
     }
 
-    // Getters et setters pour toutes les propriétés
+    public Soumission(int idArticle, int idCorrespondant, LocalDate dateSoumission, boolean affecter, String titre, int taille) {
+        this.idSoumission = new SimpleIntegerProperty(0);
+        this.idArticle = new SimpleIntegerProperty(idArticle);
+        this.idCorrespondant = new SimpleIntegerProperty(idCorrespondant);
+        this.dateSoumission = new SimpleObjectProperty<>(dateSoumission);
+        this.affecter = new SimpleBooleanProperty(affecter);
+        this.titre = new SimpleStringProperty(titre);
+        this.taille = new SimpleIntegerProperty(taille);
+    }
+
+    public Soumission() {
+        this.idSoumission = new SimpleIntegerProperty(0);
+        this.idArticle = new SimpleIntegerProperty(0);
+        this.idCorrespondant = new SimpleIntegerProperty(0);
+        this.dateSoumission = new SimpleObjectProperty<>(LocalDate.now());
+        this.affecter = new SimpleBooleanProperty(false);
+        this.titre = new SimpleStringProperty("");
+        this.taille = new SimpleIntegerProperty(0);
+    }
+
+    // Getters and setters for all properties
     public int getIdSoumission() { return idSoumission.get(); }
     public IntegerProperty idSoumissionProperty() { return idSoumission; }
     public void setIdSoumission(int idSoumission) { this.idSoumission.set(idSoumission); }
@@ -41,16 +59,16 @@ public class Soumission {
     public ObjectProperty<LocalDate> dateSoumissionProperty() { return dateSoumission; }
     public void setDateSoumission(LocalDate dateSoumission) { this.dateSoumission.set(dateSoumission); }
 
-    public int getIdEvaluateur() { return idEvaluateur.get(); }
-    public IntegerProperty idEvaluateurProperty() { return idEvaluateur; }
-    public void setIdEvaluateur(int idEvaluateur) { this.idEvaluateur.set(idEvaluateur); }
+    public boolean isAffecter() { return affecter.get(); }
+    public BooleanProperty affecterProperty() { return affecter; }
+    public void setAffecter(boolean affecter) { this.affecter.set(affecter); }
 
-    public String getTitreArticle() { return titreArticle.get(); }
-    public StringProperty titreArticleProperty() { return titreArticle; }
-    public void setTitreArticle(String titreArticle) { this.titreArticle.set(titreArticle); }
+    public String getTitre() { return titre.get(); }
+    public StringProperty titreProperty() { return titre; }
+    public void setTitre(String titre) { this.titre.set(titre); }
 
-    public String getStatut() { return statut.get(); }
-    public StringProperty statutProperty() { return statut; }
-    public void setStatut(String statut) { this.statut.set(statut); }
+    public int getTaille() { return taille.get(); }
+    public IntegerProperty tailleProperty() { return taille; }
+    public void setTaille(int taille) { this.taille.set(taille); }
 }
 
