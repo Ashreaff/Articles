@@ -7,7 +7,11 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/gestion";
     private static final String USER = "root"; 
+<<<<<<< HEAD
     private static final String PASSWORD = ""; 
+=======
+    private static final String PASSWORD = ""; // Remplacez par votre mot de passe MySQL
+>>>>>>> 3f63757c77dd1aeb6a4ffca69a82f2f5385fba81
 
     public static Connection getConnection() throws SQLException {
         try {

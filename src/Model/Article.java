@@ -9,39 +9,22 @@ public class Article {
     private final StringProperty resume;
     private final IntegerProperty taille;
     private final StringProperty contenu;
+    private final StringProperty motsCle;
     private final BooleanProperty estCourt;
-    private final BooleanProperty affecter; 
 
-
-
-    
     public Article(int idArticle, String titre, int idAuteur, String resume, int taille, 
-                   String contenu, boolean estCourt, boolean affecter) {
+                   String contenu, String motsCle, boolean estCourt) {
         this.idArticle = new SimpleIntegerProperty(idArticle);
         this.titre = new SimpleStringProperty(titre);
         this.idAuteur = new SimpleIntegerProperty(idAuteur);
         this.resume = new SimpleStringProperty(resume);
         this.taille = new SimpleIntegerProperty(taille);
         this.contenu = new SimpleStringProperty(contenu);
+        this.motsCle = new SimpleStringProperty(motsCle);
         this.estCourt = new SimpleBooleanProperty(estCourt);
-        this.affecter = new SimpleBooleanProperty(affecter); // Initialisation
     }
 
-    public Article(String titre, int idAuteur, String resume, int taille, String contenu, 
-                   boolean estCourt, boolean affecter) {
-        this.idArticle = new SimpleIntegerProperty(0); 
-        this.titre = new SimpleStringProperty(titre);
-        this.idAuteur = new SimpleIntegerProperty(idAuteur);
-        this.resume = new SimpleStringProperty(resume);
-        this.taille = new SimpleIntegerProperty(taille);
-        this.contenu = new SimpleStringProperty(contenu);
-        this.estCourt = new SimpleBooleanProperty(estCourt);
-        this.affecter = new SimpleBooleanProperty(affecter); // Initialisation
-    }
-   
 
-
-    
     // Getters and setters for all properties
     public int getIdArticle() { return idArticle.get(); }
     public IntegerProperty idArticleProperty() { return idArticle; }
@@ -67,12 +50,12 @@ public class Article {
     public StringProperty contenuProperty() { return contenu; }
     public void setContenu(String contenu) { this.contenu.set(contenu); }
 
+    public String getMotsCle() { return motsCle.get(); }
+    public StringProperty motsCleProperty() { return motsCle; }
+    public void setMotsCle(String motsCle) { this.motsCle.set(motsCle); }
+
     public boolean isEstCourt() { return estCourt.get(); }
     public BooleanProperty estCourtProperty() { return estCourt; }
     public void setEstCourt(boolean estCourt) { this.estCourt.set(estCourt); }
-
-    // Getters and setters for `affecter`
-    public boolean isAffecter() { return affecter.get(); }
-    public BooleanProperty affecterProperty() { return affecter; }
-    public void setAffecter(boolean affecter) { this.affecter.set(affecter); }
 }
+

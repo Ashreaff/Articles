@@ -7,13 +7,16 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.SQLException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class MesSoumissionsController extends AuteurBaseController {
+    private static final Logger LOGGER = Logger.getLogger(MesSoumissionsController.class.getName());
 
     @FXML private TableView<Soumission> soumissionsTable;
     @FXML private TableColumn<Soumission, String> titreColumn;
     @FXML private TableColumn<Soumission, String> dateSoumissionColumn;
-    @FXML private TableColumn<Soumission, String> statutColumn;
+    @FXML private TableColumn<Soumission, Number> tailleColumn;
     @FXML private TextArea detailsArea;
 
     private SoumissionDAO soumissionDAO = new SoumissionDAO();
@@ -21,10 +24,10 @@ public class MesSoumissionsController extends AuteurBaseController {
 
     @FXML
     private void initialize() {
-        titreColumn.setCellValueFactory(cellData -> cellData.getValue().titreArticleProperty());
+        titreColumn.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
         dateSoumissionColumn.setCellValueFactory(cellData -> 
             cellData.getValue().dateSoumissionProperty().asString());
-        statutColumn.setCellValueFactory(cellData -> cellData.getValue().statutProperty());
+        tailleColumn.setCellValueFactory(cellData -> cellData.getValue().tailleProperty());
 
         soumissionsTable.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> showSoumissionDetails(newValue));
@@ -35,12 +38,7 @@ public class MesSoumissionsController extends AuteurBaseController {
     }
 
     private void loadSoumissions() {
-        try {
-            soumissions.setAll(soumissionDAO.getSoumissionsByAuteur(getIdAuteur()));
-        } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les soumissions: " + e.getMessage());
-            e.printStackTrace();
-        }
+       
     }
 
     private void showSoumissionDetails(Soumission soumission) {
@@ -64,5 +62,7 @@ public class MesSoumissionsController extends AuteurBaseController {
             alert.setContentText(content);
             alert.showAndWait();
         }
+
+    
 }
 
