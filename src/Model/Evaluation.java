@@ -9,7 +9,7 @@ public class Evaluation {
     private final IntegerProperty idSoumission;
     private final StringProperty avis;
     private final ObjectProperty<LocalDate> dateEvaluation;
-    private final BooleanProperty evaluer; // Nouvelle propriété pour "evaluer"
+    private final BooleanProperty evaluer; 
     private List<Integer> evaluateurs; 
 
     public Evaluation(int idEvaluation, int idSoumission, String avis, LocalDate dateEvaluation, boolean evaluer, List<Integer> evaluateurs) {

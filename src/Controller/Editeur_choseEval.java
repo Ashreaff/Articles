@@ -1,10 +1,12 @@
 package Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import DAO.ArticleDAO;
+import DAO.EvaluationDAO;
 import DAO.EvaluateurDAO;
-import Model.Article;
+import DAO.SoumissionDAO;
+import Model.Soumission;
 import Model.Chercheur;
 
 import javafx.fxml.FXML;
@@ -21,22 +23,27 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.util.List;
 
 public class Editeur_choseEval {
 
 
-    // Table for articles
+    // Table for soumission
     @FXML
-    private TableView<Article> articlesTable;
+    private TableView<Soumission> soumissionTable;
 
     @FXML
-    private TableColumn<Article, Integer> idColumn;
+    private TableColumn<Soumission, Integer> idSOUColumn;
+    @FXML
+    private TableColumn<Soumission, Integer> idSArColumn;
 
     @FXML
-    private TableColumn<Article, String> nameColumn;
+    private TableColumn<Soumission, Integer> taille;
 
-    private final ArticleDAO articleDAO = new ArticleDAO();
+    @FXML
+    private TableColumn<Soumission, String> nameColumn;
+
+    private final SoumissionDAO soumissionDAO = new SoumissionDAO(); 
+
 
     // Table for evaluators
     @FXML
@@ -52,10 +59,12 @@ public class Editeur_choseEval {
 
     @FXML
     public void initialize() {
-        // Initialize article table
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("idArticle"));
+
+        idSOUColumn.setCellValueFactory(new PropertyValueFactory<>("idSoumission"));
+        idSArColumn.setCellValueFactory(new PropertyValueFactory<>("idArticle"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("titre"));
-        loadArticles();
+        taille.setCellValueFactory(new PropertyValueFactory<>("taille"));
+        loadSoumission();
 
         // Initialize evaluator table
         evalIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -66,13 +75,14 @@ public class Editeur_choseEval {
         loadEvaluateurs();
     }
 
-    private void loadArticles() {
+    private void loadSoumission() {
         try {
-            List<Article> articles = articleDAO.getAllArticles();
-            ObservableList<Article> articlesList = FXCollections.observableArrayList(articles);
-            articlesTable.setItems(articlesList);
+            List<Soumission> soumissions = soumissionDAO.getSoumissionsNonAffectees(); 
+            ObservableList<Soumission> soumissionsList = FXCollections.observableArrayList(soumissions); 
+            soumissionTable.setItems(soumissionsList); 
+
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
     }
 
@@ -85,6 +95,32 @@ public class Editeur_choseEval {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+private void handleValidateButtonClick() {
+    Soumission selectedSoumission = soumissionTable.getSelectionModel().getSelectedItem();
+    ObservableList<Chercheur> selectedEvaluateurs = evaluateursTable.getSelectionModel().getSelectedItems();
+
+    if (selectedSoumission != null && !selectedEvaluateurs.isEmpty()) {
+        int idSoumission = selectedSoumission.getIdSoumission();
+        List<Integer> idEvaluateurs = new ArrayList<>();
+        for (Chercheur evaluateur : selectedEvaluateurs) {
+            idEvaluateurs.add(evaluateur.getId());
+        }
+        EvaluationDAO evaluationDAO = new EvaluationDAO();
+        boolean success = evaluationDAO.insertEvaluationWithEvaluators(idSoumission, idEvaluateurs);
+
+        if (success) {
+            System.out.println("Évaluation et évaluateurs insérés avec succès.");
+        } else {
+            System.out.println("Erreur lors de l'insertion des données.");
+        }
+    } else {
+        System.out.println("Veuillez sélectionner une soumission et au moins un évaluateur.");
+    }
+}
+
 
 
 
