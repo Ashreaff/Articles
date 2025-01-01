@@ -1,34 +1,75 @@
 package Controller;
 
+import DAO.EvaluationDAO;
+import Model.Evaluation;
 
+import javafx.scene.Node;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 
-
+import java.util.List;
 
 public class Editeur_Decision {
 
+
     @FXML
     private ComboBox<String> decisionComboBox;
+    @FXML
+    private TableView<Evaluation> evaluationsTable;
+    @FXML
+    private TableColumn<Evaluation, Integer> idEvalColumn;
+    @FXML
+    private TableColumn<Evaluation, Integer> idSoumissionColumn;
+    @FXML
+    private TableColumn<Evaluation, String> evaluateurColumn;
+    @FXML
+    private TableColumn<Evaluation, String> avisColumn;
+    @FXML
+    private TableColumn<Evaluation, String> dateColumn;
+
+    private ObservableList<Evaluation> evaluationList = FXCollections.observableArrayList();
+    private EvaluationDAO evaluationDAO = new EvaluationDAO(); // Initialize the DAO
 
     @FXML
     public void initialize() {
+        // Initialize ComboBox
         decisionComboBox.setItems(FXCollections.observableArrayList(
             "Minor Revision", 
             "Major Revision", 
             "Refusal", 
             "Acceptance"
         ));
+
+        // Initialize TableView columns
+        idEvalColumn.setCellValueFactory(cellData -> cellData.getValue().idEvaluationProperty().asObject());
+        idSoumissionColumn.setCellValueFactory(cellData -> cellData.getValue().idSoumissionProperty().asObject());
+        
+        // Displaying the list of evaluators (a simple toString representation for now)
+        evaluateurColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEvaluateurs().toString()));
+        
+        avisColumn.setCellValueFactory(cellData -> cellData.getValue().avisProperty());
+        dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDateEvaluation().toString()));
+
+        // Fetch evaluations where evaluer is true and has evaluators
+        List<Evaluation> evaluations = evaluationDAO.getEvaluationsWithEvaluerTrueAndEvaluators();
+
+        // Add evaluations to the observable list
+        evaluationList.setAll(evaluations);
+
+        // Set the items in the TableView
+        evaluationsTable.setItems(evaluationList);
     }
+
 
 
     @FXML
