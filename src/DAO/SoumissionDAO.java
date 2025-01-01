@@ -106,7 +106,7 @@ public class SoumissionDAO {
                             rs.getInt("id_soumission"),
                             rs.getString("titre"),
                             rs.getString("resume"),
-                            rs.getInt("taille"),  // Récupère la taille de l'article
+                            rs.getInt("taille"),  
                             rs.getDate("date_soumission").toString(),
                             rs.getInt("id_correspondant"),
                             rs.getBoolean("affecter") ? "Oui" : "Non"
@@ -115,5 +115,31 @@ public class SoumissionDAO {
             }
         }
         return "Détails non disponibles";
+    }
+
+    public int saveSoumission(Soumission soumission) throws SQLException {
+        String sql = "INSERT INTO soumission (id_article, id_correspondant, date_soumission, affecter) VALUES (?, ?, ?, ?)";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
+            pstmt.setInt(1, soumission.getIdArticle());
+            pstmt.setInt(2, soumission.getIdCorrespondant());
+            pstmt.setDate(3, java.sql.Date.valueOf(soumission.getDateSoumission()));
+            pstmt.setBoolean(4, soumission.isAffecter());
+            
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating soumission failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating soumission failed, no ID obtained.");
+                }
+            }
+        }
     }
 }

@@ -33,12 +33,25 @@ public class MesSoumissionsController extends AuteurBaseController {
             (observable, oldValue, newValue) -> showSoumissionDetails(newValue));
 
         soumissionsTable.setItems(soumissions);
+    }
 
+    @Override
+    public void setIdAuteur(int id) {
+        super.setIdAuteur(id);
+        LOGGER.info("ID Auteur set in MesSoumissionsController: " + id);
         loadSoumissions();
     }
 
     private void loadSoumissions() {
-       
+        try {
+            int idAuteur = getIdAuteur();
+            LOGGER.info("Loading soumissions for author with ID: " + idAuteur);
+            soumissions.setAll(soumissionDAO.getSoumissionsByCorrespondant(idAuteur));
+            LOGGER.info("Loaded " + soumissions.size() + " soumissions");
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error loading soumissions", e);
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les soumissions: " + e.getMessage());
+        }
     }
 
     private void showSoumissionDetails(Soumission soumission) {
@@ -47,11 +60,11 @@ public class MesSoumissionsController extends AuteurBaseController {
                 String details = soumissionDAO.getSoumissionDetails(soumission.getIdSoumission());
                 detailsArea.setText(details);
             } catch (SQLException e) {
+                LOGGER.log(Level.SEVERE, "Error loading soumission details", e);
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de charger les détails de la soumission: " + e.getMessage());
-                e.printStackTrace();
             }
         } else {
-            detailsArea.clear();
+            detailsArea.setText("");
         }
     }
 
@@ -62,7 +75,5 @@ public class MesSoumissionsController extends AuteurBaseController {
             alert.setContentText(content);
             alert.showAndWait();
         }
-
-    
 }
 

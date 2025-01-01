@@ -1,11 +1,17 @@
 package Controller;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import Model.Article;
 import Model.Soumission;
 import DAO.ArticleDAO;
 import DAO.SoumissionDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -13,23 +19,46 @@ public class SoumettreArticleController extends AuteurBaseController {
 
     @FXML private TextField titreField;
     @FXML private TextArea resumeArea;
-    @FXML private TextArea contenuArea;
     @FXML private TextField motsClesField;
     @FXML private Label tailleLabel;
+    @FXML private Button importButton;
+    @FXML private Label fileNameLabel;
 
     private ArticleDAO articleDAO = new ArticleDAO();
     private SoumissionDAO soumissionDAO = new SoumissionDAO();
+    private File selectedFile;
+    private int wordCount;
 
     @FXML
     private void initialize() {
-        contenuArea.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateWordCount();
-        });
+        importButton.setOnAction(event -> importPDF());
     }
 
-    private void updateWordCount() {
-        int wordCount = contenuArea.getText().split("\\s+").length;
-        tailleLabel.setText("Nombre de mots : " + wordCount);
+    private void importPDF() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            fileNameLabel.setText(selectedFile.getName());
+            wordCount = countWordsInPDF(selectedFile);
+            tailleLabel.setText("Nombre de mots : " + wordCount);
+        }
+    }
+
+    private int countWordsInPDF(File file) {
+        try (PDDocument document = Loader.loadPDF(file)) {
+            PDFTextStripper stripper = new PDFTextStripper();
+            String text = stripper.getText(document);
+            String[] words = text.split("\\s+");
+            int count = words.length;
+            System.out.println("Nombre de mots comptés : " + count);  // Pour le débogage
+            return count;
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de lire le fichier PDF: " + e.getMessage());
+            return 0;
+        }
     }
 
     @FXML
@@ -37,7 +66,6 @@ public class SoumettreArticleController extends AuteurBaseController {
         if (validateInputs()) {
             try {
                 int idAuteur = getIdAuteur();
-                int wordCount = contenuArea.getText().split("\\s+").length;
                 boolean estCourt = wordCount < 4000;
 
                 Article article = new Article(
@@ -46,9 +74,9 @@ public class SoumettreArticleController extends AuteurBaseController {
                     idAuteur,
                     resumeArea.getText(),
                     wordCount,
-                    contenuArea.getText(),
                     motsClesField.getText(),
-                    estCourt
+                    estCourt,
+                    selectedFile.getAbsolutePath()
                 );
 
                 int articleId = articleDAO.saveArticle(article);
@@ -74,11 +102,6 @@ public class SoumettreArticleController extends AuteurBaseController {
         }
     }
 
-    @FXML
-    private void handleAnnuler() {
-        clearFields();
-    }
-
     private boolean validateInputs() {
         StringBuilder errorMessage = new StringBuilder();
 
@@ -88,11 +111,11 @@ public class SoumettreArticleController extends AuteurBaseController {
         if (resumeArea.getText().trim().isEmpty()) {
             errorMessage.append("Le résumé ne peut pas être vide.\n");
         }
-        if (contenuArea.getText().trim().isEmpty()) {
-            errorMessage.append("Le contenu ne peut pas être vide.\n");
-        }
         if (motsClesField.getText().trim().isEmpty()) {
             errorMessage.append("Veuillez entrer au moins un mot-clé.\n");
+        }
+        if (selectedFile == null) {
+            errorMessage.append("Veuillez importer un fichier PDF.\n");
         }
 
         if (errorMessage.length() > 0) {
@@ -102,21 +125,29 @@ public class SoumettreArticleController extends AuteurBaseController {
         return true;
     }
 
+
+
     private void clearFields() {
         titreField.clear();
         resumeArea.clear();
-        contenuArea.clear();
         motsClesField.clear();
+        fileNameLabel.setText("");
         tailleLabel.setText("Nombre de mots : 0");
+        selectedFile = null;
+        wordCount = 0;
+    }
+
+    @FXML
+    private void handleAnnuler() {
+        clearFields();
     }
 
     protected void showAlert(Alert.AlertType alertType, String title, String content) {
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(content);
-            alert.showAndWait();
-        }
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }
-
 

@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="Controller.SoumettreArticleController"
-      spacing="10" style="-fx-padding: 20px;">
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="Controller.SoumettreArticleController"
+    spacing="10" style="-fx-padding: 20px;">
 
     <Label text="Soumettre un Article" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
@@ -17,11 +17,14 @@
         <Label text="Résumé:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <TextArea fx:id="resumeArea" GridPane.columnIndex="1" GridPane.rowIndex="1" prefRowCount="3"/>
 
-        <Label text="Contenu:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <TextArea fx:id="contenuArea" GridPane.columnIndex="1" GridPane.rowIndex="2" prefRowCount="10"/>
+        <Label text="Mots-clés:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="motsClesField" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Séparez les mots-clés par des virgules"/>
 
-        <Label text="Mots-clés:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <TextField fx:id="motsClesField" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Séparez les mots-clés par des virgules"/>
+        <Label text="Fichier PDF:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="importButton" text="Importer PDF"/>
+            <Label fx:id="fileNameLabel"/>
+        </HBox>
 
         <Label text="Taille:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
         <Label fx:id="tailleLabel" text="Nombre de mots : 0" GridPane.columnIndex="1" GridPane.rowIndex="4"/>

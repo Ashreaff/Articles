@@ -5,10 +5,13 @@ import DataBase.DatabaseConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ArticleDAO {
+    private static final Logger LOGGER = Logger.getLogger(ArticleDAO.class.getName());
+
     public int saveArticle(Article article) throws SQLException {
-        String sql = "INSERT INTO article (titre, id_auteur, resume, taille, contenu, mots_cle, est_court) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO article (titre, id_auteur, resume, taille, mots_cle, est_court, pdf_file_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -17,25 +20,29 @@ public class ArticleDAO {
             pstmt.setInt(2, article.getIdAuteur());
             pstmt.setString(3, article.getResume());
             pstmt.setInt(4, article.getTaille());
-            pstmt.setString(5, article.getContenu());
-            pstmt.setString(6, article.getMotsCle());
-            pstmt.setBoolean(7, article.isEstCourt());
+            pstmt.setString(5, article.getMotsCle());
+            pstmt.setBoolean(6, article.isEstCourt());
+            pstmt.setString(7, article.getPdfFilePath());
+            
+            LOGGER.info("Exécution de la requête SQL : " + pstmt.toString());
+            LOGGER.info("Taille de l'article à sauvegarder : " + article.getTaille());
             
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating article failed, no rows affected.");
             }
-    
+
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);
+                    int id = generatedKeys.getInt(1);
+                    LOGGER.info("Article sauvegardé avec succès. ID: " + id + ", Taille: " + article.getTaille());
+                    return id;
                 } else {
                     throw new SQLException("Creating article failed, no ID obtained.");
                 }
             }
         }
     }
-
     public Article getArticleById(int idArticle) throws SQLException {
         String sql = "SELECT * FROM article WHERE id_article = ?";
         try (Connection conn = DatabaseConnection.getConnection();
@@ -49,9 +56,9 @@ public class ArticleDAO {
                         rs.getInt("id_auteur"),
                         rs.getString("resume"),
                         rs.getInt("taille"),
-                        rs.getString("contenu"),
                         rs.getString("mots_cle"),
-                        rs.getBoolean("est_court")
+                        rs.getBoolean("est_court"),
+                        rs.getString("pdf_file_path")
                     );
                 }
             }
@@ -73,9 +80,9 @@ public class ArticleDAO {
                         rs.getInt("id_auteur"),
                         rs.getString("resume"),
                         rs.getInt("taille"),
-                        rs.getString("contenu"),
                         rs.getString("mots_cle"),
-                        rs.getBoolean("est_court")
+                        rs.getBoolean("est_court"),
+                        rs.getString("pdf_file_path")
                     ));
                 }
             }
@@ -96,9 +103,9 @@ public class ArticleDAO {
                     rs.getInt("id_auteur"),
                     rs.getString("resume"),
                     rs.getInt("taille"),
-                    rs.getString("contenu"),
                     rs.getString("mots_cle"),
-                    rs.getBoolean("est_court")
+                    rs.getBoolean("est_court"),
+                    rs.getString("pdf_file_path")
                 ));
             }
         }
