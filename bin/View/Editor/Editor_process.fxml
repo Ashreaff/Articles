@@ -23,14 +23,7 @@
  <top>
       <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #34495E, #2C3E50); -fx-padding: 10;" BorderPane.alignment="CENTER">
          <children>
-            <!-- <Label alignment="CENTER" prefHeight="44.0" prefWidth="166.0" text="Easy Science" textFill="#FFFFFF">
-               <font>
-                  <Font name="Edwardian Script ITC" size="30.0" />
-               </font>
-            </Label>
-            <Separator maxHeight="38.0" orientation="VERTICAL" />
-            <TextField promptText="Search" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-border-radius: 5; -fx-padding: 5;" />
-             -->
+
          </children>
       </HBox>
    </top>

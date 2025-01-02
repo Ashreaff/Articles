@@ -1,14 +1,15 @@
 package Controller;
 
 import DAO.EvaluationDAO;
+import Model.EvaluateurInfo;
 import Model.Evaluation;
 
-import javafx.scene.Node;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,51 +25,112 @@ public class Editeur_Decision {
 
     @FXML
     private ComboBox<String> decisionComboBox;
+
     @FXML
     private TableView<Evaluation> evaluationsTable;
+
     @FXML
     private TableColumn<Evaluation, Integer> idEvalColumn;
+
     @FXML
     private TableColumn<Evaluation, Integer> idSoumissionColumn;
+
     @FXML
-    private TableColumn<Evaluation, String> evaluateurColumn;
+    private TableColumn<Evaluation, String> evaluateurNomColumn;
+
     @FXML
-    private TableColumn<Evaluation, String> avisColumn;
+    private TableColumn<Evaluation, String> evaluateurPrenomColumn;
+
     @FXML
-    private TableColumn<Evaluation, String> dateColumn;
+    private TableColumn<Evaluation, String> evaluateurAvisColumn;
+
+    // @FXML
+    // private TableColumn<Evaluation, String> avisEvaluationColumn;
+
+    @FXML
+    private TableColumn<Evaluation, String> dateEvaluationColumn;
+
+    @FXML
+    private TableColumn<Evaluation, String> RemarqueColumn;
 
     private ObservableList<Evaluation> evaluationList = FXCollections.observableArrayList();
-    private EvaluationDAO evaluationDAO = new EvaluationDAO(); // Initialize the DAO
+    
+    private EvaluationDAO evaluationDAO = new EvaluationDAO(); // Assume DAO is correctly set up
 
     @FXML
     public void initialize() {
-        // Initialize ComboBox
+        // Initialize ComboBox for decision options
         decisionComboBox.setItems(FXCollections.observableArrayList(
-            "Minor Revision", 
-            "Major Revision", 
+            // "Minor Revision", 
+            // "Major Revision", 
             "Refusal", 
             "Acceptance"
         ));
 
-        // Initialize TableView columns
+        // Initialize the Table columns
         idEvalColumn.setCellValueFactory(cellData -> cellData.getValue().idEvaluationProperty().asObject());
         idSoumissionColumn.setCellValueFactory(cellData -> cellData.getValue().idSoumissionProperty().asObject());
         
-        // Displaying the list of evaluators (a simple toString representation for now)
-        evaluateurColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEvaluateurs().toString()));
-        
-        avisColumn.setCellValueFactory(cellData -> cellData.getValue().avisProperty());
-        dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDateEvaluation().toString()));
+        // Each evaluator's name and first name
+        evaluateurNomColumn.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getEvaluateurs().get(0).getNom());
+        });
 
-        // Fetch evaluations where evaluer is true and has evaluators
+        evaluateurPrenomColumn.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getEvaluateurs().get(0).getPrenom());
+        });
+
+        // Each evaluator's opinion (Avis)
+        evaluateurAvisColumn.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getEvaluateurs().get(0).getAvis());
+        });
+
+        // Global evaluation opinion
+        // avisEvaluationColumn.setCellValueFactory(cellData -> cellData.getValue().avisProperty());
+        
+        // Evaluation date
+        dateEvaluationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDateEvaluation().toString()));
+        RemarqueColumn.setCellValueFactory(cellData -> {
+            return new SimpleStringProperty(cellData.getValue().getEvaluateurs().get(0).getRemarque());
+        });
+        
+
+        // Load evaluations from the database
         List<Evaluation> evaluations = evaluationDAO.getEvaluationsWithEvaluerTrueAndEvaluators();
 
-        // Add evaluations to the observable list
-        evaluationList.setAll(evaluations);
+        // Flatten the evaluators for each evaluation, so we can display them as individual rows
+        ObservableList<Evaluation> flattenedEvaluations = FXCollections.observableArrayList();
 
-        // Set the items in the TableView
-        evaluationsTable.setItems(evaluationList);
+        // For each evaluation, create a new row for each evaluator and add it to the table
+        for (Evaluation evaluation : evaluations) {
+            for (EvaluateurInfo evaluator : evaluation.getEvaluateurs()) {
+                Evaluation evaluatorEvaluation = new Evaluation(
+                    evaluation.getIdEvaluation(),
+                    evaluation.getIdSoumission(),
+                    evaluation.getAvis(),
+                    evaluation.getDateEvaluation(),
+                    evaluation.isEvaluer(),
+                    List.of(evaluator) // Each row will only contain one evaluator
+                );
+                flattenedEvaluations.add(evaluatorEvaluation);
+            }
+        }
+
+        // Populate the table with the flattened evaluations (each row is an evaluator)
+        evaluationsTable.setItems(flattenedEvaluations);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

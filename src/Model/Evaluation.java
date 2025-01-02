@@ -10,8 +10,9 @@ public class Evaluation {
     private final StringProperty avis;
     private final ObjectProperty<LocalDate> dateEvaluation;
     private final BooleanProperty evaluer; 
-    private List<Integer> evaluateurs; 
-    public Evaluation(int idEvaluation, int idSoumission, String avis, LocalDate dateEvaluation, boolean evaluer, List<Integer> evaluateurs) {
+    private List<EvaluateurInfo> evaluateurs; 
+
+    public Evaluation(int idEvaluation, int idSoumission, String avis, LocalDate dateEvaluation, boolean evaluer, List<EvaluateurInfo> evaluateurs) {
         this.idEvaluation = new SimpleIntegerProperty(idEvaluation);
         this.idSoumission = new SimpleIntegerProperty(idSoumission);
         this.avis = new SimpleStringProperty(avis);
@@ -40,10 +41,10 @@ public class Evaluation {
     public BooleanProperty evaluerProperty() { return evaluer; }
     public void setEvaluer(boolean evaluer) { this.evaluer.set(evaluer); }
 
-    public List<Integer> getEvaluateurs() {
+    public List<EvaluateurInfo> getEvaluateurs() {
         return evaluateurs;
     }
-    public void setEvaluateurs(List<Integer> evaluateurs) {
+    public void setEvaluateurs(List<EvaluateurInfo> evaluateurs) {
         this.evaluateurs = evaluateurs;
     }
 }

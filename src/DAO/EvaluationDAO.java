@@ -1,6 +1,7 @@
 package DAO;
 
 import DataBase.DatabaseConnection;
+import Model.EvaluateurInfo;
 import Model.Evaluation;
 import java.sql.*;
 import java.util.ArrayList;
@@ -55,10 +56,13 @@ public boolean insertEvaluationWithEvaluators(int idSoumission, List<Integer> id
 
 
 public List<Evaluation> getEvaluationsWithEvaluerTrueAndEvaluators() {
-    String query = "SELECT e.id_evaluation, e.id_soumission, e.avis, e.date_evaluation, e.evaluer, ee.id_evaluateur " +
+    String query = "SELECT e.id_evaluation, e.id_soumission, e.avis AS evaluation_avis, e.date_evaluation, e.evaluer, " +
+                   "ee.id_evaluateur, c.nom AS evaluateur_nom, c.prenom AS evaluateur_prenom, " +
+                   "ee.avis AS evaluateur_avis, ee.Remarque AS evaluateur_remarque " +
                    "FROM evaluation e " +
                    "JOIN evaluation_evaluateur ee ON e.id_evaluation = ee.id_evaluation " +
                    "JOIN evaluateur ev ON ee.id_evaluateur = ev.id_evaluateur " +
+                   "JOIN chercheur c ON ev.id_evaluateur = c.id_chercheur " +
                    "WHERE e.evaluer = true";
     
     List<Evaluation> evaluations = new ArrayList<>();
@@ -74,7 +78,7 @@ public List<Evaluation> getEvaluationsWithEvaluerTrueAndEvaluators() {
                 Evaluation evaluation = new Evaluation(
                     idEvaluation,
                     rs.getInt("id_soumission"),
-                    rs.getString("avis"),
+                    rs.getString("evaluation_avis"),
                     rs.getDate("date_evaluation").toLocalDate(),
                     rs.getBoolean("evaluer"),
                     new ArrayList<>()
@@ -83,9 +87,18 @@ public List<Evaluation> getEvaluationsWithEvaluerTrueAndEvaluators() {
             }
             
             Evaluation evaluation = evaluationMap.get(idEvaluation);
-            List<Integer> evaluateurs = evaluation.getEvaluateurs();
-            evaluateurs.add(rs.getInt("id_evaluateur"));
+            
+            EvaluateurInfo evaluator = new EvaluateurInfo(
+                rs.getInt("id_evaluateur"),
+                rs.getString("evaluateur_nom"),
+                rs.getString("evaluateur_prenom"),
+                rs.getString("evaluateur_avis"), 
+                rs.getString("evaluateur_remarque")
+            );
+            
+            evaluation.getEvaluateurs().add(evaluator); // Store the full EvaluateurInfo object
         }
+        
         evaluations.addAll(evaluationMap.values());
         
     } catch (SQLException e) {
@@ -94,11 +107,6 @@ public List<Evaluation> getEvaluationsWithEvaluerTrueAndEvaluators() {
     
     return evaluations;
 }
-
-
-
-
-
 
 
 
