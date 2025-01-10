@@ -98,14 +98,16 @@
                              style="-fx-background-color: white; -fx-border-color: #e0e0e0;
                                     -fx-border-radius: 5; -fx-background-radius: 5;"/>
                     <Button fx:id="submitButton" text="Submit Decision"
-                            style="-fx-background-color: #2962ff; -fx-text-fill: white;
-                                   -fx-font-size: 14; -fx-padding: 10 20;
-                                   -fx-background-radius: 5; -fx-cursor: hand;
-                                   -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);">
-                        <HBox.margin>
-                            <Insets left="20"/>
-                        </HBox.margin>
-                    </Button>
+        style="-fx-background-color: #2962ff; -fx-text-fill: white;
+               -fx-font-size: 14; -fx-padding: 10 20;
+               -fx-background-radius: 5; -fx-cursor: hand;
+               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);"
+        onAction="#handleSubmitButtonClick">
+    <HBox.margin>
+        <Insets left="20"/>
+    </HBox.margin>
+</Button>
+
                 </HBox>
             </VBox>
         </VBox>

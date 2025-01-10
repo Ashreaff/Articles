@@ -1,19 +1,63 @@
 package Controller;
 
-
+import Model.Revue;
+import DAO.revueDAO;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
 
 public class Editeur_process {
+
+    @FXML
+    private TableView<Revue> revus;
+    @FXML
+    private TableColumn<Revue, Integer> idRevue;
+    @FXML
+    private TableColumn<Revue, Integer> idEvaluation;
+    @FXML
+    private TableColumn<Revue, String> Decision;
+
+    private final revueDAO dao = new revueDAO();
+
+    @FXML
+    public void initialize() {
+        // Configure les colonnes
+        idRevue.setCellValueFactory(new PropertyValueFactory<>("idRevue"));
+        idEvaluation.setCellValueFactory(new PropertyValueFactory<>("idEvaluation"));
+        Decision.setCellValueFactory(new PropertyValueFactory<>("decision"));
+
+        // Charger les données
+        loadRevues();
+    }
+
+    private void loadRevues() {
+        ObservableList<Revue> revueList = FXCollections.observableArrayList(dao.getAllRevues());
+        revus.setItems(revueList);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     @FXML

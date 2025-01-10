@@ -63,7 +63,7 @@ public List<Evaluation> getEvaluationsWithEvaluerTrueAndEvaluators() {
                    "JOIN evaluation_evaluateur ee ON e.id_evaluation = ee.id_evaluation " +
                    "JOIN evaluateur ev ON ee.id_evaluateur = ev.id_evaluateur " +
                    "JOIN chercheur c ON ev.id_evaluateur = c.id_chercheur " +
-                   "WHERE e.evaluer = true";
+                   "WHERE e.evaluer = true AND e.avis IS NULL";
     
     List<Evaluation> evaluations = new ArrayList<>();
     try (Connection conn = DatabaseConnection.getConnection();

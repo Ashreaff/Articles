@@ -3,7 +3,8 @@ package Controller;
 import DAO.EvaluationDAO;
 import Model.EvaluateurInfo;
 import Model.Evaluation;
-
+import Model.Revue;
+import DAO.revueDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -119,6 +120,61 @@ public class Editeur_Decision {
         // Populate the table with the flattened evaluations (each row is an evaluator)
         evaluationsTable.setItems(flattenedEvaluations);
     }
+
+
+
+
+
+
+    
+
+    @FXML
+private void handleSubmitButtonClick() {
+    // Récupérer l'évaluation sélectionnée
+    Evaluation selectedEvaluation = evaluationsTable.getSelectionModel().getSelectedItem();
+    if (selectedEvaluation == null) {
+        showAlert("Erreur", "Veuillez sélectionner une évaluation.", Alert.AlertType.ERROR);
+        return;
+    }
+
+    // Récupérer la décision
+    String decision = decisionComboBox.getValue();
+    if (decision == null || decision.isEmpty()) {
+        showAlert("Erreur", "Veuillez sélectionner une décision.", Alert.AlertType.ERROR);
+        return;
+    }
+
+    // Créer un objet Revue
+    Revue revue = new Revue(0, selectedEvaluation.getIdEvaluation(), decision);
+
+    // Insérer dans la base de données
+    revueDAO revueDAO = new revueDAO();
+    boolean success = revueDAO.insertRevue(revue);
+
+    if (success) {
+        showAlert("Succès", "La revue a été insérée avec succès.", Alert.AlertType.INFORMATION);
+    } else {
+        showAlert("Erreur", "Une erreur s'est produite lors de l'insertion de la revue.", Alert.AlertType.ERROR);
+    }
+}
+
+// Méthode utilitaire pour afficher une alerte
+private void showAlert(String title, String message, Alert.AlertType alertType) {
+    Alert alert = new Alert(alertType);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
+}
+
+
+
+
+
+
+
+
+
 
 
 

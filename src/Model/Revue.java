@@ -2,13 +2,11 @@ package Model;
 
 public class Revue {
     private int idRevue;
-    private int idEditeur;
     private int idEvaluation;
-    private String decision;  
+    private String decision;
 
-    public Revue(int idRevue, int idEditeur, int idEvaluation, String decision) {
+    public Revue(int idRevue, int idEvaluation, String decision) {
         this.idRevue = idRevue;
-        this.idEditeur = idEditeur;
         this.idEvaluation = idEvaluation;
         this.decision = decision;
     }
@@ -16,10 +14,6 @@ public class Revue {
     // Getters
     public int getIdRevue() {
         return idRevue;
-    }
-
-    public int getIdEditeur() {
-        return idEditeur;
     }
 
     public int getIdEvaluation() {
@@ -35,10 +29,6 @@ public class Revue {
         this.idRevue = idRevue;
     }
 
-    public void setIdEditeur(int idEditeur) {
-        this.idEditeur = idEditeur;
-    }
-
     public void setIdEvaluation(int idEvaluation) {
         this.idEvaluation = idEvaluation;
     }
@@ -46,5 +36,6 @@ public class Revue {
     public void setDecision(String decision) {
         this.decision = decision;
     }
+
 
 }
