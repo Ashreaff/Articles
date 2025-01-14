@@ -5,12 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+
 
 <BorderPane 
     xmlns="http://javafx.com/javafx/21" 
@@ -23,14 +28,7 @@
  <top>
       <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #34495E, #2C3E50); -fx-padding: 10;" BorderPane.alignment="CENTER">
          <children>
-            <!-- <Label alignment="CENTER" prefHeight="44.0" prefWidth="166.0" text="Easy Science" textFill="#FFFFFF">
-               <font>
-                  <Font name="Edwardian Script ITC" size="30.0" />
-               </font>
-            </Label>
-            <Separator maxHeight="38.0" orientation="VERTICAL" />
-            <TextField promptText="Search" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-border-radius: 5; -fx-padding: 5;" />
-             -->
+
          </children>
       </HBox>
    </top>
@@ -73,55 +71,46 @@
     </VBox>
 </left>
     
-    <!-- Central Content Area -->
     <center>
-        <VBox 
-            spacing="20" 
-            style="-fx-padding: 20px; -fx-background-color: white; 
-                   -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
-            <Label 
-                text="Making Final Decision Based on Reviewer Evaluations" 
-                style="-fx-font-size: 24px; -fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
-            
-            <GridPane 
-                hgap="20" 
-                vgap="15">
-                <Label 
-                    text="Evaluator Evaluation:" 
-                    style="-fx-font-size: 16px; -fx-font-weight: bold;"
-                    GridPane.columnIndex="0" 
-                    GridPane.rowIndex="0"/>
-                
-                <TextField 
-                    GridPane.columnIndex="0" 
-                    GridPane.rowIndex="1" 
-                    GridPane.columnSpan="2" 
-                    prefHeight="200" 
-                    style="-fx-background-color: #f9f9f9; -fx-border-color: #e0e0e0; 
-                           -fx-border-radius: 5px; -fx-padding: 10px;"/>
-                
-                <Label 
-                    text="Final Decision:" 
-                    style="-fx-font-size: 16px; -fx-font-weight: bold;"
-                    GridPane.columnIndex="2" 
-                    GridPane.rowIndex="0"/>
-                
-<ComboBox 
-    fx:id="decisionComboBox" 
-    GridPane.columnIndex="2" 
-    GridPane.rowIndex="1" 
-    prefWidth="250"
-    style="-fx-background-color: #f1f3f4; -fx-background-radius: 5px;"/>
+        <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 30;">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="Submission Evaluations" 
+                       style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            </HBox>
 
-                
-                <Button 
-                    text="Validate Decision" 
-                    GridPane.columnIndex="2" 
-                    GridPane.rowIndex="2" 
-                    style="-fx-background-color: #3498db; -fx-text-fill: white; 
-                           -fx-background-radius: 5px; -fx-padding: 10px;
-                           -fx-font-size: 14px; -fx-cursor: hand;"/>
-            </GridPane>
+<TableView fx:id="evaluationsTable" prefWidth="800" prefHeight="400">
+        <columns>
+            <TableColumn fx:id="idEvalColumn" text="ID Evaluation" prefWidth="100" />
+            <TableColumn fx:id="idSoumissionColumn" text="ID Soumission" prefWidth="100" />
+            <TableColumn fx:id="evaluateurNomColumn" text="Nom Evaluateur" prefWidth="150" />
+            <TableColumn fx:id="evaluateurPrenomColumn" text="Prénom Evaluateur" prefWidth="150" />
+            <TableColumn fx:id="evaluateurAvisColumn" text="Avis Evaluateur" prefWidth="150" />
+            <TableColumn fx:id="RemarqueColumn" text="Remarque" prefWidth="150" />
+            <TableColumn fx:id="dateEvaluationColumn" text="Date Evaluation" prefWidth="150" />
+        </columns>
+    </TableView>
+
+            <VBox spacing="15" style="-fx-background-color: #f8f9fa; -fx-padding: 20; -fx-background-radius: 5;">
+                <Label text="Final Decision" 
+                       style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <ComboBox fx:id="decisionComboBox" prefWidth="300"
+                             style="-fx-background-color: white; -fx-border-color: #e0e0e0;
+                                    -fx-border-radius: 5; -fx-background-radius: 5;"/>
+                    <Button fx:id="submitButton" text="Submit Decision"
+        style="-fx-background-color: #2962ff; -fx-text-fill: white;
+               -fx-font-size: 14; -fx-padding: 10 20;
+               -fx-background-radius: 5; -fx-cursor: hand;
+               -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);"
+        onAction="#handleSubmitButtonClick">
+    <HBox.margin>
+        <Insets left="20"/>
+    </HBox.margin>
+</Button>
+
+                </HBox>
+            </VBox>
         </VBox>
     </center>
 </BorderPane>
+

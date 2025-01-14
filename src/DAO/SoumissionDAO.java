@@ -105,7 +105,7 @@ public class SoumissionDAO {
                             rs.getInt("id_soumission"),
                             rs.getString("titre"),
                             rs.getString("resume"),
-                            rs.getInt("taille"),
+                            rs.getInt("taille"),  
                             rs.getDate("date_soumission").toString(),
                             rs.getInt("id_correspondant"),
                             rs.getBoolean("affecter") ? "Oui" : "Non",

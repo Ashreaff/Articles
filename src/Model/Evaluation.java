@@ -10,9 +10,9 @@ public class Evaluation {
     private final StringProperty avis;
     private final ObjectProperty<LocalDate> dateEvaluation;
     private final BooleanProperty evaluer; 
-    private List<Integer> evaluateurs; 
+    private List<EvaluateurInfo> evaluateurs; 
 
-    public Evaluation(int idEvaluation, int idSoumission, String avis, LocalDate dateEvaluation, boolean evaluer, List<Integer> evaluateurs) {
+    public Evaluation(int idEvaluation, int idSoumission, String avis, LocalDate dateEvaluation, boolean evaluer, List<EvaluateurInfo> evaluateurs) {
         this.idEvaluation = new SimpleIntegerProperty(idEvaluation);
         this.idSoumission = new SimpleIntegerProperty(idSoumission);
         this.avis = new SimpleStringProperty(avis);
@@ -21,7 +21,6 @@ public class Evaluation {
         this.evaluateurs = evaluateurs; 
     }
 
-    // Getters et setters pour toutes les propriétés
     public int getIdEvaluation() { return idEvaluation.get(); }
     public IntegerProperty idEvaluationProperty() { return idEvaluation; }
     public void setIdEvaluation(int idEvaluation) { this.idEvaluation.set(idEvaluation); }
@@ -38,17 +37,14 @@ public class Evaluation {
     public ObjectProperty<LocalDate> dateEvaluationProperty() { return dateEvaluation; }
     public void setDateEvaluation(LocalDate dateEvaluation) { this.dateEvaluation.set(dateEvaluation); }
 
-    // Nouvelle méthode getter/setter pour "evaluer"
     public boolean isEvaluer() { return evaluer.get(); }
     public BooleanProperty evaluerProperty() { return evaluer; }
     public void setEvaluer(boolean evaluer) { this.evaluer.set(evaluer); }
 
-    // Getter et Setter pour la liste des évaluateurs
-    public List<Integer> getEvaluateurs() {
+    public List<EvaluateurInfo> getEvaluateurs() {
         return evaluateurs;
     }
-
-    public void setEvaluateurs(List<Integer> evaluateurs) {
+    public void setEvaluateurs(List<EvaluateurInfo> evaluateurs) {
         this.evaluateurs = evaluateurs;
     }
 }

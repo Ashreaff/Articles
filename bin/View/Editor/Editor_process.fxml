@@ -23,14 +23,7 @@
  <top>
       <HBox prefHeight="60.0" spacing="20.0" style="-fx-background-color: linear-gradient(to right, #34495E, #2C3E50); -fx-padding: 10;" BorderPane.alignment="CENTER">
          <children>
-            <!-- <Label alignment="CENTER" prefHeight="44.0" prefWidth="166.0" text="Easy Science" textFill="#FFFFFF">
-               <font>
-                  <Font name="Edwardian Script ITC" size="30.0" />
-               </font>
-            </Label>
-            <Separator maxHeight="38.0" orientation="VERTICAL" />
-            <TextField promptText="Search" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ECF0F1; -fx-border-color: #BDC3C7; -fx-border-radius: 5; -fx-padding: 5;" />
-             -->
+
          </children>
       </HBox>
    </top>
@@ -74,69 +67,14 @@
 </left>
 
     <center>
-        <VBox spacing="20.0" BorderPane.alignment="CENTER">
-            <Label 
-                text="Making Final Decision Based on Reviewer Evaluations:" 
-                style="-fx-text-fill: #1F2937; 
-                       -fx-font-weight: bold;">
-                <font>
-                    <Font name="Segoe UI Bold" size="24.0" />
-                </font>
-                <padding>
-                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                </padding>
-            </Label>
-
-            <Pane>
-                <VBox 
-                    spacing="10.0" 
-                    style="-fx-background-color: white;
-                           -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
-                           -fx-background-radius: 10px;">
-                    <Label 
-                        text="Track progress:" 
-                        style="-fx-text-fill: #1F2937;">
-                        <font>
-                            <Font name="Segoe UI" size="18.0" />
-                        </font>
-                    </Label>
-                    <TableView 
-                        style="-fx-background-color: white;
-                               -fx-background-radius: 10px;">
-                        <columns>
-                            <TableColumn 
-                                text="ID" 
-                                prefWidth="66.0"
-                                style="-fx-background-color: #2563EB; 
-                                       -fx-text-fill: white;"/>
-                            <TableColumn 
-                                text="Article name" 
-                                prefWidth="325.0"
-                                style="-fx-background-color: #2563EB; 
-                                       -fx-text-fill: white;"/>
-                            <TableColumn 
-                                text="Etat" 
-                                prefWidth="99.0"
-                                style="-fx-background-color: #2563EB; 
-                                       -fx-text-fill: white;"/>
-                        </columns>
-                    </TableView>
-                </VBox>
-            </Pane>
-
-            <Button 
-                text="Retour" 
-                prefWidth="135.0"
-                style="-fx-background-color: white; 
-                       -fx-text-fill: #2563EB; 
-                       -fx-border-color: #2563EB; 
-                       -fx-border-radius: 20px; 
-                       -fx-background-radius: 20px; 
-                       -fx-padding: 10px 20px;">
-                <font>
-                    <Font name="Segoe UI Bold" size="12.0" />
-                </font>
-            </Button>
-        </VBox>
+            <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 30;">
+<TableView fx:id="revus" prefWidth="800" prefHeight="400">
+    <columns>
+        <TableColumn fx:id="idRevue" text="ID Revus" prefWidth="100" />
+        <TableColumn fx:id="idEvaluation" text="ID Evaluation" prefWidth="100" />
+        <TableColumn fx:id="Decision" text="Decision" prefWidth="150" />
+    </columns>
+</TableView>
+            </VBox>
     </center>
 </BorderPane>
