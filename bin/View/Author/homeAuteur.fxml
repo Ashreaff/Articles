@@ -41,10 +41,10 @@
                 <Label text="Mes Soumissions" textFill="#FFFFFF" style="-fx-font-size: 16;" />
             </HBox>
             
-            <HBox fx:id="mesEvaluationsOption" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleMesEvaluations">
+            <!-- <HBox fx:id="mesEvaluationsOption" alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand;" onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#handleMesEvaluations">
                 <Label text="📊" style="-fx-font-size: 20px; -fx-text-fill: #FFFFFF;" />
                 <Label text="Mes Évaluations" textFill="#FFFFFF" style="-fx-font-size: 16;" />
-            </HBox>
+            </HBox> -->
              <HBox fx:id="logout" alignment="CENTER_LEFT" spacing="10.0"
                   style="-fx-padding: 10 5; -fx-background-color: transparent; -fx-border-radius: 5; -fx-background-radius: 5; -fx-cursor: hand; -fx-transition: all 0.3s ease-in-out;"
                   onMouseEntered="#handleHoverEnter" onMouseExited="#handleHoverExit" onMouseClicked="#logoutClick">

@@ -11,6 +11,7 @@ public class Soumission {
     private final BooleanProperty affecter;
     private final StringProperty titre;  // Nouvelle propriété pour le titre de l'article
     private final IntegerProperty taille;  // Nouvelle propriété pour la taille de l'article
+    private final StringProperty pdfFilePath;  // Nouvelle propriété pour le chemin du fichier PDF
 
     // Constructeur mis à jour
     public Soumission(int idSoumission, int idArticle, int idCorrespondant, LocalDate dateSoumission, 
@@ -22,7 +23,22 @@ public class Soumission {
         this.affecter = new SimpleBooleanProperty(affecter);
         this.titre = new SimpleStringProperty(titre);  // Initialisation du titre
         this.taille = new SimpleIntegerProperty(taille);  // Initialisation de la taille
+        this.pdfFilePath = new SimpleStringProperty(null);  // Initialisation du chemin du fichier PDF
+
     }
+
+      // Constructeur mis à jour
+      public Soumission(int idSoumission, int idArticle, int idCorrespondant, LocalDate dateSoumission, 
+      boolean affecter, String titre, int taille, String pdfFilePath) {
+    this.idSoumission = new SimpleIntegerProperty(idSoumission);
+    this.idArticle = new SimpleIntegerProperty(idArticle);
+    this.idCorrespondant = new SimpleIntegerProperty(idCorrespondant);
+    this.dateSoumission = new SimpleObjectProperty<>(dateSoumission);
+    this.affecter = new SimpleBooleanProperty(affecter);
+    this.titre = new SimpleStringProperty(titre);  // Initialisation du titre
+    this.taille = new SimpleIntegerProperty(taille);  // Initialisation de la taille
+    this.pdfFilePath = new SimpleStringProperty(pdfFilePath);  // Initialisation du chemin du fichier PDF
+}
 
     public int getIdSoumission() { return idSoumission.get(); }
     public IntegerProperty idSoumissionProperty() { return idSoumission; }
@@ -51,4 +67,8 @@ public class Soumission {
     public int getTaille() { return taille.get(); }  // Getter pour la taille
     public IntegerProperty tailleProperty() { return taille; }  // Propriété pour la taille
     public void setTaille(int taille) { this.taille.set(taille); }  // Setter pour la taille
+
+    public String getPdfFilePath() { return pdfFilePath.get(); }
+    public StringProperty pdfFilePathProperty() { return pdfFilePath; }
+    public void setPdfFilePath(String pdfFilePath) { this.pdfFilePath.set(pdfFilePath); }
 }
